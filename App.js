@@ -7,6 +7,11 @@ import RegistrationScreen from './src/screens/Auth/RegistrationScreen';
 import LoginScreen from './src/screens/Auth/LoginScreen';
 import Home from './src/screens/Main/Home';
 
+import { Provider } from 'react-redux';
+import { Persistor } from 'redux-persist';
+
+import { store, persistor } from './src/redux/store';
+
 export default function App() {
 
   const { Navigator, Screen } = createStackNavigator();
@@ -24,16 +29,20 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
-      <Navigator
-        initialRouteName="Login"
-        screenOptions={{ headerShown: false }}
-      >
-        <Screen name="Register" component={RegistrationScreen} />
-        <Screen name="Login" component={LoginScreen} />
-        <Screen name="Home" component={Home} />
-      </Navigator>
-    </NavigationContainer>
+    <Provider store = { store }>
+      <Persistor loading={null} persistor={persistor}>
+        <NavigationContainer>
+          <Navigator
+            initialRouteName="Login"
+            screenOptions={{ headerShown: false }}
+          >
+            <Screen name="Register" component={RegistrationScreen} />
+            <Screen name="Login" component={LoginScreen} />
+            <Screen name="Home" component={Home} />
+          </Navigator>
+        </NavigationContainer>
+      </Persistor>
+    </Provider>
   );
 }
 
