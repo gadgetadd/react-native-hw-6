@@ -2,13 +2,13 @@ import 'react-native-gesture-handler';
 import { useFonts } from 'expo-font';
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import { PersistGate } from 'redux-persist/integration/react';
 
 import RegistrationScreen from './src/screens/Auth/RegistrationScreen';
 import LoginScreen from './src/screens/Auth/LoginScreen';
 import Home from './src/screens/Main/Home';
 
 import { Provider } from 'react-redux';
-import { Persistor } from 'redux-persist';
 
 import { store, persistor } from './src/redux/store';
 
@@ -29,8 +29,8 @@ export default function App() {
   }
 
   return (
-    <Provider store = { store }>
-      <Persistor loading={null} persistor={persistor}>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
         <NavigationContainer>
           <Navigator
             initialRouteName="Login"
@@ -41,7 +41,7 @@ export default function App() {
             <Screen name="Home" component={Home} />
           </Navigator>
         </NavigationContainer>
-      </Persistor>
+      </PersistGate>
     </Provider>
   );
 }

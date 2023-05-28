@@ -12,7 +12,7 @@ import {
 } from 'redux-persist';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// import authReducer from './authSlice';
+import authReducer from './authSlice';
 // import filterReducer from './filterSlice'
 // import postssApi from './postsApi'
 // import modalReducer from './modalSlice';
@@ -40,4 +40,4 @@ export const store = configureStore({
 
 export const persistor = persistStore(store);
 
-setupListeners(store.dispatch)
+// setupListeners(store.dispatch)

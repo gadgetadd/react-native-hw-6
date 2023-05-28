@@ -15,16 +15,20 @@ import {
 import { StatusBar } from 'expo-status-bar';
 import { Fontisto } from '@expo/vector-icons';
 import background from '../../assets/images/background.jpg'
+import { useDispatch } from 'react-redux';
+import { signUp } from '../../redux/authOperations';
 
 export default function RegistrationScreen({ navigation }) {
 
     const [login, setLogin] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const dispatch = useDispatch();
 
     const handleRegister = () => {
         const formData = { login, email, password }
-        console.log(formData);
+        console.log('formData', formData);
+        dispatch(signUp(formData))
         setLogin('');
         setEmail('');
         setPassword('');
