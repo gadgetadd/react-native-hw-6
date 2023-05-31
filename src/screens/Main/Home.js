@@ -5,14 +5,31 @@ import { Fontisto } from '@expo/vector-icons';
 import PostsScreen from './PostsScreen';
 import ProfileScreen from './ProfileScreen';
 import CreatePostsScreen from './CreatePostsScreen';
+import { useSelector } from "react-redux";
+
+
+
+
+
+
+
 
 export default function Home() {
 
-    const { Navigator, Screen } = createBottomTabNavigator();
+    const Tab = createBottomTabNavigator();
+
+
+
+
+    const user = useSelector(state => state.auth.user)
+    const id = useSelector(state => state.auth.userId)
+    console.log('state', user, id);
+
+
 
     return (
         <>
-            <Navigator initialRouteName="PostsScreen"
+            <Tab.Navigator initialRouteName="PostsScreen"
                 screenOptions={({ route }) => ({
                     tabBarIcon: ({ color, size }) => {
                         let iconName;
@@ -32,7 +49,7 @@ export default function Home() {
                     tabBarStyle: { height: 60 },
                 })}
             >
-                <Screen
+                <Tab.Screen
                     name="CreatePostsScreen"
                     component={CreatePostsScreen}
                     options={{
@@ -40,14 +57,14 @@ export default function Home() {
                         headerTitleAlign: 'center'
                     }}
                 />
-                <Screen
+                <Tab.Screen
                     name="PostsScreen"
                     component={PostsScreen}
                     options={{
                         headerShown: false
                     }}
                 />
-                <Screen
+                <Tab.Screen
                     name="ProfileScreen"
                     component={ProfileScreen}
                     options={{
@@ -55,7 +72,7 @@ export default function Home() {
                         headerTitleAlign: 'center'
                     }}
                 />
-            </Navigator>
+            </Tab.Navigator>
             <StatusBar style="dark" />
         </>
     )

@@ -15,18 +15,22 @@ import {
 import { StatusBar } from 'expo-status-bar';
 import { Fontisto } from '@expo/vector-icons';
 import background from '../../assets/images/background.jpg'
+import { useDispatch } from 'react-redux';
+import { logIn } from '../../redux/authOperations';
+
+
 
 export default function LoginScreen({ navigation }) {
 
-    const [login, setLogin] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const dispatch = useDispatch();
 
     const handleLogin = () => {
-        const formData = { login, password }
-        console.log(formData);
-        setLogin('');
-        setPassword('');
-        navigation.navigate("Home")
+        const formData = { email, password }
+        dispatch(logIn(formData))
+
+
     };
 
     return (
@@ -47,10 +51,10 @@ export default function LoginScreen({ navigation }) {
                         <Text style={styles.title}>Login</Text>
                         <KeyboardAvoidingView enabled behavior={Platform.OS == "ios" ? "padding" : "height"}>
                             <TextInput
-                                value={login}
-                                onChangeText={setLogin}
+                                value={email}
+                                onChangeText={setEmail}
                                 style={styles.input}
-                                placeholder="Login"
+                                placeholder="Email"
                             />
                             <TextInput
                                 value={password}

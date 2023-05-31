@@ -20,19 +20,17 @@ import { signUp } from '../../redux/authOperations';
 
 export default function RegistrationScreen({ navigation }) {
 
-    const [login, setLogin] = useState('');
+    const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const dispatch = useDispatch();
 
+
+
     const handleRegister = () => {
-        const formData = { login, email, password }
-        console.log('formData', formData);
+        const formData = { name, email, password }
         dispatch(signUp(formData))
-        setLogin('');
-        setEmail('');
-        setPassword('');
-        navigation.navigate("Home")
+
     };
 
     return (
@@ -54,10 +52,10 @@ export default function RegistrationScreen({ navigation }) {
                         <Text style={styles.title}>Registration</Text>
                         <KeyboardAvoidingView enabled behavior={Platform.OS == "ios" ? "padding" : "height"}>
                             <TextInput
-                                value={login}
-                                onChangeText={setLogin}
+                                value={name}
+                                onChangeText={setName}
                                 style={styles.input}
-                                placeholder="Login"
+                                placeholder="Name"
                             />
                             <TextInput
                                 value={email}
