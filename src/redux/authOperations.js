@@ -3,44 +3,11 @@ import { auth } from '../firebase/config';
 import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
-    onAuthStateChanged,
     updateProfile,
     signOut
 } from 'firebase/auth';
-import { updateUser } from './authSlice';
 
 
-// axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
-
-// const setToken = token => axios.defaults.headers.common.Authorization = `Bearer ${token}`;
-// const removeToken = () => axios.defaults.headers.common.Authorization = '';
-
-export const refreshUser = createAsyncThunk(
-    'auth/refresh',
-    async (_, thunkAPI) => {
-
-
-        try {
-            onAuthStateChanged(auth, (user) => {
-                if (user) {
-                    const userData = {
-                        name: user.displayName,
-                        userId: user.uid,
-                        email: user.email
-
-                    }
-                    console.log('userData', userData);
-                    thunkAPI.dispatch(updateUser(userData))
-
-                } else {
-                    console.log('else', user);
-                }
-            });
-        } catch (error) {
-            return thunkAPI.rejectWithValue(error.message);
-        }
-    }
-);
 
 export const signUp = createAsyncThunk(
     'auth/signup',

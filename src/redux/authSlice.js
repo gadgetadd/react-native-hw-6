@@ -4,12 +4,11 @@ import {
 
     logIn,
     logOut,
-    // refreshUser
+
 } from './authOperations';
 
 const initialState = {
-    user: { name: null, email: null },
-    userId: null,
+    user: { name: null, email: null, userId: null, },
     isLoggedIn: false,
     // isAuth: false,
     // isRefreshing: false,
@@ -24,7 +23,7 @@ const authSlice = createSlice({
         updateUser(state, action) {
             state.user.name = action.payload.name;
             state.user.email = action.payload.email;
-            state.userId = action.payload.userId;
+            state.user.userId = action.payload.userId;
             state.isLoggedIn = true;
         }
     },
@@ -33,7 +32,7 @@ const authSlice = createSlice({
             .addCase(signUp.fulfilled, (state, action) => {
                 state.user.name = action.payload.name;
                 state.user.email = action.payload.email;
-                state.userId = action.payload.userId;
+                state.user.userId = action.payload.userId;
                 state.isLoggedIn = true;
                 // state.isAuth = false;
             }).addCase(signUp.rejected, (state, action) => {
@@ -46,7 +45,7 @@ const authSlice = createSlice({
             .addCase(logIn.fulfilled, (state, action) => {
                 state.user.name = action.payload.name;
                 state.user.email = action.payload.email;
-                state.userId = action.payload.userId;
+                state.user.userId = action.payload.userId;
                 state.isLoggedIn = true;
                 // state.isAuth = false;
             })
@@ -60,7 +59,7 @@ const authSlice = createSlice({
             .addCase(logOut.fulfilled, (state) => {
                 state.user.name = null;
                 state.user.email = null;
-                state.userId = null;
+                state.user.userId = null;
                 state.isLoggedIn = false;
                 // state.isAuth = false;
             })
@@ -70,22 +69,12 @@ const authSlice = createSlice({
             .addCase(logOut.pending, (state) => {
                 // state.isAuth = true
             })
-        //             .addCase(refreshUser.pending, (state) => {
-        //                 state.isRefreshing = true;
-        //             })
-        //             .addCase(refreshUser.fulfilled, (state, action) => {
-        //                 state.user = action.payload;
-        //                 state.isLoggedIn = true;
-        //                 state.isRefreshing = false;
-        //             })
-        //             .addCase(refreshUser.rejected, (state) => {
-        //                 state.isRefreshing = false;
-        //             })
+
 
 
     }
 })
 
-export const { updateUser } = authSlice.actions
+export const { updateUser } = authSlice.actions;
 
 export default authSlice.reducer;

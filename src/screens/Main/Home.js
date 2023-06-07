@@ -21,9 +21,7 @@ export default function Home() {
 
 
 
-    const user = useSelector(state => state.auth.user)
-    const id = useSelector(state => state.auth.userId)
-    console.log('state', user, id);
+   
 
 
 
