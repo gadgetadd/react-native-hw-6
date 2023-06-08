@@ -14,6 +14,7 @@ export default function DefaultScreen({ route }) {
             setPosts((prevState) => [...prevState, route.params]);
         }
     }, [route.params]);
+    console.log('posts', posts);
 
     return (
         <View style={styles.container}>

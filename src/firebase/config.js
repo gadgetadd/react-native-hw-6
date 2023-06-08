@@ -4,26 +4,17 @@ import { getReactNativePersistence } from "firebase/auth/react-native";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import {
-    API_KEY,
-    AUTH_DOMAIN,
-    DATABASE_URL,
-    PROJECT_ID,
-    STORAGE_BUCKET,
-    MESSAGING_SENDER_ID,
-    APP_ID,
-    MEASUREMENT_ID,
-} from "@env"
+
 
 const firebaseConfig = {
-    apiKey: API_KEY,
-    authDomain: AUTH_DOMAIN,
-    databaseURL: DATABASE_URL,
-    projectId: PROJECT_ID,
-    storageBucket: STORAGE_BUCKET,
-    messagingSenderId: MESSAGING_SENDER_ID,
-    appId: APP_ID,
-    measurementId: MEASUREMENT_ID
+    apiKey: "AIzaSyBF1fNvwaFiqR_iEzzTvKePUnOTd8Aty70",
+    authDomain: "midyear-psyche-226419.firebaseapp.com",
+    databaseURL: "https://midyear-psyche-226419-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "midyear-psyche-226419",
+    storageBucket: "midyear-psyche-226419.appspot.com",
+    messagingSenderId: "872273068817",
+    appId: "1:872273068817:web:cc9af3004db232deb602b0",
+    measurementId: "G-MHVHV8YGC2"
 };
 
 
