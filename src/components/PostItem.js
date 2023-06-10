@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 export default function PostItem({ item }) {
 
     const navigation = useNavigation();
-    const { photo, title, location, place, comments } = item;
+    const { photo, title, location, place, comments, id } = item;
 
     return (
         <View style={styles.post}>
@@ -30,7 +30,7 @@ export default function PostItem({ item }) {
                     <Text style={{ textDecorationLine: 'underline' }}>{place}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                    onPress={() => navigation.navigate("CommentsScreen", { comments, photo })}
+                    onPress={() => navigation.navigate("CommentsScreen", { id, photo })}
                     style={styles.button}
                 >
                     <EvilIcons
@@ -38,7 +38,7 @@ export default function PostItem({ item }) {
                         size={20}
                         color={'black'}
                     />
-                    <Text>{comments.length}</Text>
+                    <Text>{comments?.length || ''}</Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 20,
-        fontWeight: 700,
+        fontWeight: 'bold',
     },
     image: {
         width: '100%',

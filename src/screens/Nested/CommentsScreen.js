@@ -1,10 +1,49 @@
 import { Text, View, StyleSheet, TextInput, Image, TouchableOpacity } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
+import { db } from "../../firebase/config";
+import { collection, onSnapshot, doc, addDoc } from "firebase/firestore";
+import { useState, useEffect } from 'react';
 
 export default function CommentsScreen({ route }) {
 
-    const { photo, comments } = route.params
+    const [comments, setComments] = useState([]);
+    const [comment, setComment] = useState('');
 
+    const fetchComments = async () => {
+        const ref = collection(doc(db, "posts", id), "comments");
+        const unsubscribe = onSnapshot(ref, (snapshot) => {
+            const comments = [];
+            snapshot.forEach((doc) => {
+                comments.push({ ...doc.data(), id: doc.id });
+            });
+            comments.sort((a, b) => b.createdAt - a.createdAt)
+            setComments(comments);
+        });
+
+    }
+
+    const addComment = async () => {
+        const ref = collection(doc(db, "posts", id), "comments");
+        const newComment = {
+            comment,
+            createdAt: Date.now()
+        }
+        await addDoc(ref, newComment)
+
+
+    }
+
+
+
+
+    useEffect(() => {
+        fetchComments()
+    }, []);
+
+
+
+    const { photo, id } = route.params
+    console.log(comments);
     return (
         <View style={styles.container}>
             <View style={styles.imageWrap}>
@@ -17,13 +56,13 @@ export default function CommentsScreen({ route }) {
             <View style={styles.inputWrap}>
                 <TextInput
                     style={styles.input}
-                    // value={place}
-                    // onChangeText={setPlace}
+                    value={comment}
+                    onChangeText={setComment}
                     placeholder="Write a comment"
                 />
                 <TouchableOpacity
                     style={styles.icon}
-                    onPress={() => { }}
+                    onPress={addComment}
                 >
                     <FontAwesome name={'arrow-up'} size={25} color={'black'} />
                 </TouchableOpacity>
