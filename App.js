@@ -21,7 +21,7 @@ export default function App() {
 
   return (
     <Provider store={store}>
-      <ToastProvider>
+      <ToastProvider textStyle={{ fontSize: 24 }} offset={50}>
         <NavigationContainer>
           <MainRouter />
         </NavigationContainer>

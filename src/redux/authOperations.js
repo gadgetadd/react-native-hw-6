@@ -36,7 +36,6 @@ export const logIn = createAsyncThunk(
         try {
             await signInWithEmailAndPassword(auth, data.email, data.password);
             const { displayName, email, uid } = auth.currentUser;
-            console.log(auth.currentUser);
             return ({
                 name: displayName,
                 userId: uid,

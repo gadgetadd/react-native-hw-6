@@ -25,11 +25,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.gadgetadd.ReactNativeHW"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "jsEngine": "jsc"
+    "extra": {
+      "eas": {
+        "projectId": "bfa0f4d7-28f6-447f-a992-7fb8fcfde6de"
+      }
+    }
   }
 }

@@ -10,7 +10,6 @@ export default function LogOutBtn() {
         <TouchableOpacity
             style={{ marginHorizontal: 20 }}
             onPress={() => {
-                console.log('logout');
                 dispatch(logOut())
             }}>
             <SimpleLineIcons name={'logout'} size={24} color={'black'} />

@@ -22,9 +22,11 @@ import { selectUserId, selectUserName } from "../../redux/selectors";
 import CommentItem from '../../components/CommentItem';
 import { useToast } from 'react-native-fast-toast';
 
+import { useRef } from 'react';
 
 export default function CommentsScreen({ route }) {
 
+    const listRef = useRef(null);
     const { photo, id, author } = route.params
     const [comments, setComments] = useState([]);
     const [comment, setComment] = useState('');
@@ -40,7 +42,7 @@ export default function CommentsScreen({ route }) {
                 snapshot.forEach((doc) => {
                     comments.push({ ...doc.data(), id: doc.id });
                 });
-                comments.sort((a, b) => b.createdAt - a.createdAt)
+                comments.sort((a, b) => a.createdAt - b.createdAt)
                 setComments(comments);
             });
         } catch (error) {
@@ -49,6 +51,9 @@ export default function CommentsScreen({ route }) {
     }
 
     const addComment = async () => {
+        if (comment === '') {
+            return toast.show('Enter the comment, Please!', { placement: 'top' });
+        }
         try {
             const postRef = doc(db, "posts", id);
             const commentsRef = collection(postRef, "comments");
@@ -58,6 +63,8 @@ export default function CommentsScreen({ route }) {
                 author: { id: userId, name: userName }
             }
             await addDoc(commentsRef, newComment);
+            setComment('')
+            listRef.current.scrollToEnd()
             await updateDoc(postRef, { totalComments: comments.length + 1 })
         } catch (error) {
             toast.show(error, { type: "warning" });
@@ -71,6 +78,7 @@ export default function CommentsScreen({ route }) {
     return (
         <View style={styles.container}>
             <FlatList
+                ref={listRef}
                 ListHeaderComponent={<View style={styles.imageWrap}>
                     <Image
                         style={styles.image}
