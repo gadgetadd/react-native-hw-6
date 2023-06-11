@@ -12,14 +12,12 @@ import {
 export const signUp = createAsyncThunk(
     'auth/signup',
     async (data, thunkAPI) => {
-
         try {
             await createUserWithEmailAndPassword(auth, data.email, data.password);
             await updateProfile(auth.currentUser, {
                 displayName: data.name,
             })
             const { displayName, email, uid } = auth.currentUser;
-
             return ({
                 name: displayName,
                 userId: uid,
@@ -38,13 +36,12 @@ export const logIn = createAsyncThunk(
         try {
             await signInWithEmailAndPassword(auth, data.email, data.password);
             const { displayName, email, uid } = auth.currentUser;
-
+            console.log(auth.currentUser);
             return ({
                 name: displayName,
                 userId: uid,
                 email
             });
-            return res.data;
         } catch (error) {
             return thunkAPI.rejectWithValue(error.message);
         }
@@ -54,7 +51,6 @@ export const logIn = createAsyncThunk(
 export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
     try {
         await signOut(auth);
-
     } catch (error) {
         return thunkAPI.rejectWithValue(error.message);
     }

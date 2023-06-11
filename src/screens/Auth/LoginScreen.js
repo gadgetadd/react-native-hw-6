@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import {
     Button,
     StyleSheet,
@@ -14,23 +15,19 @@ import {
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { Fontisto } from '@expo/vector-icons';
-import background from '../../assets/images/background.jpg'
-import { useDispatch } from 'react-redux';
 import { logIn } from '../../redux/authOperations';
-
-
+import background from '../../assets/images/background.jpg'
 
 export default function LoginScreen({ navigation }) {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const isFieldsEmpty = !Boolean(email && password);
     const dispatch = useDispatch();
 
-    const handleLogin = () => {
+    const handleLogin = async () => {
         const formData = { email, password }
         dispatch(logIn(formData))
-
-
     };
 
     return (
@@ -65,6 +62,7 @@ export default function LoginScreen({ navigation }) {
                             />
                         </KeyboardAvoidingView>
                         <Button
+                            disabled={isFieldsEmpty}
                             title="Login"
                             color="#FF6C00"
                             onPress={handleLogin}

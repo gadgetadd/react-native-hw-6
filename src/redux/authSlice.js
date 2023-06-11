@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
     signUp,
-
     logIn,
     logOut,
 
@@ -9,9 +8,8 @@ import {
 
 const initialState = {
     user: { name: null, email: null, userId: null, },
+    isLoading: true,
     isLoggedIn: false,
-    // isAuth: false,
-    // isRefreshing: false,
     error: null
 };
 
@@ -20,7 +18,10 @@ const authSlice = createSlice({
     initialState,
 
     reducers: {
-        updateUser(state, action) {
+        resetError: (state) => { state.error = null },
+        loadUser: (state) => { state.isLoading = true; },
+        stopLoading: (state) => { state.isLoading = false; },
+        updateUser: (state, action) => {
             state.user.name = action.payload.name;
             state.user.email = action.payload.email;
             state.user.userId = action.payload.userId;
@@ -34,47 +35,46 @@ const authSlice = createSlice({
                 state.user.email = action.payload.email;
                 state.user.userId = action.payload.userId;
                 state.isLoggedIn = true;
-                // state.isAuth = false;
-            }).addCase(signUp.rejected, (state, action) => {
-                // state.error = action.payload
-                // state.isAuth = false;
+                state.isLoading = false;
+            })
+            .addCase(signUp.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload;
             })
             .addCase(signUp.pending, (state) => {
-                // state.isAuth = true
+                state.isLoading = true;
             })
             .addCase(logIn.fulfilled, (state, action) => {
                 state.user.name = action.payload.name;
                 state.user.email = action.payload.email;
                 state.user.userId = action.payload.userId;
                 state.isLoggedIn = true;
-                // state.isAuth = false;
+                state.isLoading = false;
             })
             .addCase(logIn.rejected, (state, action) => {
-                // state.error = action.payload
-                // state.isAuth = false;
+                state.isLoading = false;
+                state.error = action.payload
             })
             .addCase(logIn.pending, (state) => {
-                // state.isAuth = true
+                state.isLoading = true
             })
             .addCase(logOut.fulfilled, (state) => {
                 state.user.name = null;
                 state.user.email = null;
                 state.user.userId = null;
                 state.isLoggedIn = false;
-                // state.isAuth = false;
+                state.isLoading = false;
             })
-            .addCase(logOut.rejected, (state) => {
-                // state.isAuth = false;
+            .addCase(logOut.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload
             })
             .addCase(logOut.pending, (state) => {
-                // state.isAuth = true
+                state.isLoading = true
             })
-
-
-
     }
 })
 
-export const { updateUser } = authSlice.actions;
+export const { updateUser, loadUser, stopLoading, resetError } = authSlice.actions;
 
 export default authSlice.reducer;

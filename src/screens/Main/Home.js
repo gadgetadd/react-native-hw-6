@@ -5,25 +5,10 @@ import { Fontisto } from '@expo/vector-icons';
 import PostsScreen from './PostsScreen';
 import ProfileScreen from './ProfileScreen';
 import CreatePostsScreen from './CreatePostsScreen';
-import { useSelector } from "react-redux";
-
-
-
-
-
-
-
 
 export default function Home() {
 
     const Tab = createBottomTabNavigator();
-
-
-
-
-   
-
-
 
     return (
         <>

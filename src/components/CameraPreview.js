@@ -4,7 +4,6 @@ import { Camera } from "expo-camera";
 import * as MediaLibrary from "expo-media-library";
 import { MaterialIcons } from '@expo/vector-icons';
 
-
 export default function CameraPreview({ onCapture }) {
 
     const [hasPermission, setHasPermission] = useState(null);

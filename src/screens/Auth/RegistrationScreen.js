@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import {
     Button,
     StyleSheet,
@@ -15,7 +16,6 @@ import {
 import { StatusBar } from 'expo-status-bar';
 import { Fontisto } from '@expo/vector-icons';
 import background from '../../assets/images/background.jpg'
-import { useDispatch } from 'react-redux';
 import { signUp } from '../../redux/authOperations';
 
 export default function RegistrationScreen({ navigation }) {
@@ -23,14 +23,12 @@ export default function RegistrationScreen({ navigation }) {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const isFieldsEmpty = !Boolean(name && email && password);
     const dispatch = useDispatch();
-
-
 
     const handleRegister = () => {
         const formData = { name, email, password }
         dispatch(signUp(formData))
-
     };
 
     return (
@@ -73,6 +71,7 @@ export default function RegistrationScreen({ navigation }) {
                             />
                         </KeyboardAvoidingView>
                         <Button
+                            disabled={isFieldsEmpty}
                             title="Register"
                             color="#FF6C00"
                             onPress={handleRegister}
